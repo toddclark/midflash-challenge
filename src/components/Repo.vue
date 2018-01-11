@@ -18,12 +18,9 @@
                   <v-icon color="grey darken-2">launch</v-icon>
                 </a>
               </v-flex>
-              <v-flex xs12>{{repoData.description}}</v-flex>
+              <v-flex xs12 class="mb-4">{{repoData.description}}</v-flex>
               <v-flex xs6>
-
-              </v-flex>
-              <v-flex xs6>
-                
+                Open Issues: {{repoData.open_issues_count}}
               </v-flex>
             </v-layout>
           </v-card>
@@ -48,7 +45,10 @@ export default {
   props: ['id'],
   computed: {
     ...mapGetters({
+      issues: 'getRepoIssues',
       repos: 'getOrgRepos',
+      stargazers: 'getRepoStargazers',
+      userToken: 'getUserToken',
     }),
     repoData() {
       return this.repos.find(repo => repo.id == this.id);
@@ -58,6 +58,9 @@ export default {
     removeAPIFromURL(val) {
       return val.replace(/\.git$/i, '');
     },
+  },
+  created() {
+    this.$store.dispatch('loadRepoData', { token: this.userToken, owner: this.repoData.owner.login, name: this.repoData.name });
   },
   methods: {
     goHome() {

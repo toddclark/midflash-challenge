@@ -43,10 +43,31 @@ module.exports = {
     });
   },
 
-  getRepoDetails(token, org) {
+  getRepoIssues(token, owner, repo) {
+    return new Promise((resolve, reject) => {
+      console.log(`https://api.github.com/repos/${owner}/${repo}/issues?access_token=${token}`);
+      request({
+        url: `https://api.github.com/repos/${owner}/${repo}/issues?access_token=${token}`,
+        headers: {
+          'User-Agent': 'request'
+        },
+        json: true
+      }, (err, res, body) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+          return;
+        }
+
+        resolve(body);
+      });
+    });
+  },
+
+  getRepoStargazers(token, owner, repo) {
     return new Promise((resolve, reject) => {
       request({
-        url: `https://api.github.com/?access_token=${token}`,
+        url: `https://api.github.com/repos/${owner}/${repo}/stargazers?access_token=${token}`,
         headers: {
           'User-Agent': 'request'
         },

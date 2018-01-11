@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import org from './modules/org';
+import repo from './modules/repo';
 import user from './modules/user';
 
 Vue.use(Vuex);
@@ -10,6 +11,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     org,
+    repo,
     user,
   },
   strict: true,

@@ -71,10 +71,16 @@ const mutations = {
   [types.SET_SIGNED_IN](state, { username, token }) {
     state.username = username || '';
     state.token = token || '';
+
+    localStorage.setItem('username', username);
+    localStorage.setItem('token', token);
   },
   [types.SET_SIGNED_OUT](state) {
     state.username = '';
     state.token = '';
+
+    localStorage.removeItem('username');
+    localStorage.removeItem('token');
   },
 };
 

@@ -7,6 +7,14 @@
 <script>
 export default {
   name: 'app',
+  created() {
+    const username = localStorage.getItem('username');
+    const token = localStorage.getItem('token');
+
+    if (username && token) {
+      this.$store.dispatch('signIn', { username, token });
+    }
+  },
 };
 </script>
 

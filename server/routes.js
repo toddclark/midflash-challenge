@@ -111,15 +111,51 @@ routes.route('/org/:org').get(function (req, res) {
   });
 });
 
-routes.route('/repository/:repo').get(function (req, res) {
+routes.route('/repo_extras/:owner/:repo').get(function (req, res) {
   const token = _get(req, 'query.token', null);
 
   // EC - invalid token 
   if (typeof token !== 'string' || !token) {
-    res.status(500).json({'error':'Invalid token'});
+    res.status(401).json({'error':'Invalid token'});
     return;
   }
 
+  const owner = _get(req, 'params.owner', null);
+
+  // EC - invalid owner
+  if (typeof owner !== 'string' || !owner) {
+    res.status(500).json({'error':'Invalid repository name'});
+    return;
+  }
+
+  const repo = _get(req, 'params.repo', null);
+
+  // EC - invalid repo 
+  if (typeof repo !== 'string' || !repo) {
+    res.status(500).json({'error':'Invalid repository name'});
+    return;
+  }
+
+  Promise.all([
+    githubAPI.getRepoIssues(token, owner, repo),
+    githubAPI.getRepoStargazers(token, owner, repo)
+  ])
+  .catch((err) => {
+    console.log(chalk.red('failed to retrieve repo data -', err));
+    res.status(500).json({'error': err});
+  })
+  .then((results) => {
+    // EC - invalid results
+    if (!Array.isArray(results) || results.length < 2) {
+      res.status(500).json({'error': 'Invalid github api response'});
+      return;
+    }
+
+    let issues = Array.isArray(results[0]) ? results[0] : [];
+    let stargazers = Array.isArray(results[1]) ? results[1] : [];
+
+    res.status(200).json({ issues, stargazers });
+  });
 });
 
 routes.route('/ping').get(function (req, res) {
