@@ -1,1 +1,12 @@
-# midflash-challenge
+# mindflash-challenge
+
+> Mindflash coding challenge.
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run start

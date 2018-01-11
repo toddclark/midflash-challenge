@@ -1,0 +1,8 @@
+export const SET_LOGIN_ERROR = 'SET_LOGIN_ERROR';
+export const SET_ORG_MEMBERS = 'SET_ORG_MEMBERS';
+export const SET_ORG_REPOS = 'SET_ORG_REPOS';
+export const SET_ORG_VALID = 'SET_ORG_VALID';
+export const SET_SIGNED_IN = 'SET_SIGNED_IN';
+export const SET_SIGNED_OUT = 'SET_SIGNED_OUT';
+export const SET_USER_LOGGED_IN = 'SET_USER_LOGGED_IN';
+
