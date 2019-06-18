@@ -19,3 +19,13 @@ npm install
 
 # serve with hot reload at localhost:8080
 npm run start
+```
+
+## Usage
+
+- View the UI at http://localhost:8080
+- Click SIGN IN in the top right corner
+- Enter your git username and Access Token 
+  - Access tokens can be created on github.com via: user-menu -> Settings -> Developer Settings -> Personal Access Tokens
+- Search and view repository owners and listings
+
